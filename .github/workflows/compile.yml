@@ -45,8 +45,7 @@ jobs:
       - name: Prepare for Windows
         if: startsWith(matrix.os, 'windows')
         run: |
-          $client = new-object System.Net.WebClient
-          $client.DownloadFile('https://cygwin.com/setup-x86_64.exe', '..\setup-x86_64.exe')
+          (new-object System.Net.WebClient).DownloadFile('https://cygwin.com/setup-x86_64.exe', '..\setup-x86_64.exe')
           cmd.exe /c '..\setup-x86_64.exe -q -P autoconf -P make -P unzip -P zip -s "https://mirrors.kernel.org/sourceware/cygwin/" -R "C:\cygwin" -l "C:\CygwinPkg"'
           $cygwin_dir = "C:\cygwin"
           echo (Join-Path $cygwin_dir bin) >> $env:GITHUB_PATH
